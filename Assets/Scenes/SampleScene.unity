@@ -1058,11 +1058,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1633396277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efe7981075a09ff4d9e5e1ef08743b59, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b0a457dacc1c848965a0dae5d2e818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
-  jumpForce: 7
+  clueName: 
+  clueDescription: 
 --- !u!61 &1633396279
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1101,7 +1101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.68, y: 1.87}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1185,7 +1185,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -855298285791758126, guid: ae1e7d44933d6c84aab6c6a420fd860d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1221,7 +1221,7 @@ Animator:
   m_GameObject: {fileID: 1633396277}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b86c5d7a249e87c409fedbbd0a2cc2d3, type: 2}
+  m_Controller: {fileID: 9100000, guid: a9315770f42fa674d9e3e47aa0874e44, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1633396277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f215eb54f267164dba5a83ed6e305bb, type: 3}
+  m_Script: {fileID: 11500000, guid: b7a6de9b543d6d44486ba6bf29e6afd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
