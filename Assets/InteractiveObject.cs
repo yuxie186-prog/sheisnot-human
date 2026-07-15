@@ -1,59 +1,96 @@
 using UnityEngine;
+using System.Collections;
 
 public class InteractiveObject : MonoBehaviour
 {
-    [Header("线索名称")]
-    public string clueName;
-    [Header("触发后显示的字幕内容")]
-    [TextArea(3, 5)] // 让输入框在编辑器里变成多行，方便写小作文
+    [Header("UI设置")]
     public string clueDescription;
 
-    private bool isPlayerInArea;
+    [Header("镜子状态设置 (Element 0:正常, 1-3:变化)")]
+    public SpriteRenderer mirrorRenderer;
+    public Sprite[] mirrorStates;
+
+    [Header("切换节奏 (数值越小越快)")]
+    public float fadeDuration = 0.1f; // 渐变时间
+    public float stayDuration = 0.3f; // 状态停留时间
+
+    private bool isPlayerInRange;
     private bool isShowingText;
+    private bool isChanging = false;
+
+    void Awake()
+    {
+        // 如果没拖拽，自动获取身上的 SpriteRenderer
+        if (mirrorRenderer == null) mirrorRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
-        // 玩家在范围内，按下 E 键
-        if (isPlayerInArea && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             if (!isShowingText)
             {
-                // 如果当前没显示字幕，就显示
+                // 1. 弹出UI
                 UIManager.Instance.ShowSubtitle(clueDescription);
                 isShowingText = true;
+
+                // 2. 只有第一次交互时触发一次循环切换
+                if (!isChanging) StartCoroutine(ChangeMirrorSequence());
             }
             else
             {
-                // 如果已经显示了，再按一次 E 就关闭字幕
+                // 3. 关闭UI
                 UIManager.Instance.HideSubtitle();
                 isShowingText = false;
             }
         }
     }
 
-    // 玩家进入范围
-    private void OnTriggerEnter2D(Collider2D other)
+    IEnumerator ChangeMirrorSequence()
     {
-        if (other.CompareTag("Player"))
+        isChanging = true;
+        // 确保数组有值
+        if (mirrorStates.Length < 4) yield break;
+
+        for (int i = 1; i < mirrorStates.Length; i++)
         {
-            isPlayerInArea = true;
-            // 可选：进入范围时可以在控制台提示一下
-            Debug.Log($"走进 {clueName}，按下 [E] 检查");
+            yield return StartCoroutine(Fade(0f)); // 淡出
+            mirrorRenderer.sprite = mirrorStates[i];
+            yield return StartCoroutine(Fade(1f)); // 淡入
+            yield return new WaitForSeconds(stayDuration);
+        }
+
+        // 最后变回正常
+        yield return StartCoroutine(Fade(0f));
+        mirrorRenderer.sprite = mirrorStates[0];
+        yield return StartCoroutine(Fade(1f));
+
+        isChanging = false;
+    }
+
+    IEnumerator Fade(float targetAlpha)
+    {
+        float elapsed = 0f;
+        Color color = mirrorRenderer.color;
+        float startAlpha = color.a;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, targetAlpha, elapsed / fadeDuration);
+            mirrorRenderer.color = color;
+            yield return null;
         }
     }
 
-    // 玩家离开范围
+    private void OnTriggerEnter2D(Collider2D other) { if (other.CompareTag("Player")) isPlayerInRange = true; }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInArea = false;
-            // 玩家强行离开时，自动关闭字幕
-            if (isShowingText)
-            {
-                UIManager.Instance.HideSubtitle();
-                isShowingText = false;
-            }
+            isPlayerInRange = false;
+            UIManager.Instance.HideSubtitle();
+            isShowingText = false;
         }
     }
 }
