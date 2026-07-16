@@ -10,6 +10,10 @@ public class InteractiveObject : MonoBehaviour
     public SpriteRenderer mirrorRenderer;
     public Sprite[] mirrorStates;
 
+    [Header("特效设置")]
+    public ParticleSystem mirrorParticle; // 拖入刚才创建的粒子系统
+    public UnityEngine.Rendering.Universal.Light2D mirrorLight; // 拖入刚才创建的光
+
     [Header("切换节奏 (数值越小越快)")]
     public float fadeDuration = 0.1f; // 渐变时间
     public float stayDuration = 0.3f; // 状态停留时间
@@ -49,18 +53,27 @@ public class InteractiveObject : MonoBehaviour
     IEnumerator ChangeMirrorSequence()
     {
         isChanging = true;
-        // 确保数组有值
+
         if (mirrorStates.Length < 4) yield break;
 
         for (int i = 1; i < mirrorStates.Length; i++)
         {
-            yield return StartCoroutine(Fade(0f)); // 淡出
+            // --- 切换前瞬间触发特效 ---
+            if (mirrorParticle != null) mirrorParticle.Play();
+            if (mirrorLight != null) mirrorLight.intensity = 2.0f; // 增加亮度
+
+            yield return StartCoroutine(Fade(0f));
             mirrorRenderer.sprite = mirrorStates[i];
-            yield return StartCoroutine(Fade(1f)); // 淡入
+
+            // --- 切换后关闭特效 ---
+            if (mirrorParticle != null) mirrorParticle.Stop();
+            if (mirrorLight != null) mirrorLight.intensity = 0f;
+
+            yield return StartCoroutine(Fade(1f));
             yield return new WaitForSeconds(stayDuration);
         }
 
-        // 最后变回正常
+        // 最后变回正常的处理
         yield return StartCoroutine(Fade(0f));
         mirrorRenderer.sprite = mirrorStates[0];
         yield return StartCoroutine(Fade(1f));
