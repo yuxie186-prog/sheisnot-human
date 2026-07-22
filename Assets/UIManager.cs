@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro; // 引入TextMeshPro命名空间
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,13 +10,17 @@ public class UIManager : MonoBehaviour
     public GameObject subtitlePanel; // 拖入场景中的字幕底框物体
     public TextMeshProUGUI subtitleText; // 拖入场景中的 TextMeshPro 文本组件
 
+    // 记录当前正在互动的对象，方便点击时通知它
+    private InteractiveObject currentActiveInteraction;
+    private bool isSubtitleShowing = false;
+
     private void Awake()
     {
-        // 确保单例唯一性，并防止在切换场景或重复加载时报错
+        // 确保单例唯一，并防止在切换场景或重复加载时报错
         if (Instance == null)
         {
             Instance = this;
-            // 如果你想让 UI 在场景切换时不被销毁，可以取消下面这行的注释
+            // 如果你想 UI 在场景切换时不被销毁，可以取消下面这行的注释
             // DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
@@ -25,9 +29,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 显示字幕的方法
-    public void ShowSubtitle(string text)
+    private void Update()
     {
+        // 当旁白正在显示时，检测玩家是否点击了鼠标左键
+        if (isSubtitleShowing && Input.GetMouseButtonDown(0))
+        {
+            OnScreenClicked();
+        }
+    }
+
+    // 显示字幕的方法（增加了关联当前交互对象）
+    public void ShowSubtitle(string text, InteractiveObject interObj)
+    {
+        currentActiveInteraction = interObj;
+        isSubtitleShowing = true;
+
         if (subtitlePanel == null || subtitleText == null)
         {
             Debug.LogWarning("UIManager: UI 元素未绑定，请在 Inspector 中检查赋值！");
@@ -39,8 +55,11 @@ public class UIManager : MonoBehaviour
     }
 
     // 隐藏字幕的方法
-    public void HideSubtitle()
+    public void Hidesubtitle()
     {
+        isSubtitleShowing = false;
+        currentActiveInteraction = null;
+
         if (subtitlePanel != null)
         {
             subtitlePanel.SetActive(false); // 隐藏底框
@@ -49,6 +68,15 @@ public class UIManager : MonoBehaviour
         if (subtitleText != null)
         {
             subtitleText.text = ""; // 清空文字
+        }
+    }
+
+    // 当玩家在旁白显示时点击屏幕
+    void OnScreenClicked()
+    {
+        if (currentActiveInteraction != null)
+        {
+            currentActiveInteraction.OnDialogueClicked();
         }
     }
 }
