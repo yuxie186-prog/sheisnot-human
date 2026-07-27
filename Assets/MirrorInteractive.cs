@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 // 如果你的项目用的是 URP 的 2D Light，请确保这一行存在（如果报错可删掉）
 using UnityEngine.Rendering.Universal;
 
@@ -11,6 +12,9 @@ public class MirrorInteractive : MonoBehaviour
 
     [Header("切换节奏(数值越小越快)")]
     public float fadeDuration = 0.5f;
+
+    [Header("操作指引UI（直接把InteractPrompt拖进来）")]
+    public GameObject promptUI;
 
     [Header("2D光照设置 (可选)")]
     public Light2D mirrorLight; // 可以在面板把镜子的 2D Light 拖进来
@@ -26,13 +30,13 @@ public class MirrorInteractive : MonoBehaviour
     // 镜子专属的独立对话剧本
     private string[][] dialoguePages = new string[][]
     {
-        new string[] { "这面镜子看起来有些年头了，镜面上隐隐约约泛着水气……" },
+        new string[] { "この鏡は相当古びているようだ。鏡面にはうっすらと水滴が浮かんでいる……" },
         new string[] {
-            "镜子里映出的，是她熟悉的脸。可家里分明空无一人。",
-            "她还是自己剪了那头参差不齐的刘海……笨手笨脚的，看样子她依旧没真正学会怎么当一个人类。"
+            "鏡に映し出されているのは、見慣れた彼女の顔。だが、家の中には誰もいないはずだった。",
+            "彼女は相変わらず、自分で前髪をガタガタに切り揃えている……相変わらず不器用で、どうやら彼女はまだ、まともな人間になりきれていないらしい。"
         },
-        new string[] { "镜面泛起冰冷的涟漪。那头白发与幽蓝的微光……她从来都不是人类。" },
-        new string[] { "水波退去，镜面只剩下冰冷的鳞片与空洞的裂纹。她回海里去了吗？" }
+        new string[] { "鏡面に冷たい波紋が広がる。その白髪と幽玄な青い光……彼女は最初から人間などではなかった。" },
+        new string[] { "水が引き、鏡面には冷たい鱗と空虚な亀裂だけが残されていた。彼女は海へと帰ったのだろうか？" }
     };
 
     void Awake()
@@ -52,7 +56,7 @@ public class MirrorInteractive : MonoBehaviour
             if (isFading) return;
             HandleNext();
         }
-    }
+    } // <- 这里正确关闭了 Update 方法
 
     void StartInteraction()
     {
@@ -112,7 +116,6 @@ public class MirrorInteractive : MonoBehaviour
     IEnumerator StepToNextState(int index)
     {
         isFading = true;
-
         // 画面淡出时，顺便让 2D 光闪一下或变亮
         if (mirrorLight != null)
         {
@@ -145,15 +148,18 @@ public class MirrorInteractive : MonoBehaviour
         currentPageIndex = 0;
         isMirrorInteracting = false;
 
-        // 恢复玩家移动控制权
+        UIManager.Instance.Hidesubtitle();
+
+        // 核心修复：交互结束时，重新启用玩家的移动脚本
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
             PlayerMovement playerMove = player.GetComponent<PlayerMovement>();
-            if (playerMove != null) playerMove.enabled = true;
+            if (playerMove != null)
+            {
+                playerMove.enabled = true;
+            }
         }
-
-        UIManager.Instance.Hidesubtitle();
     }
 
     IEnumerator Fade(float targetAlpha)
@@ -179,7 +185,16 @@ public class MirrorInteractive : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) isPlayerInRange = true;
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+            if (promptUI != null && !isMirrorInteracting)
+            {
+                promptUI.SetActive(true);
+                TextMeshProUGUI tmpText = promptUI.GetComponentInChildren<TextMeshProUGUI>();
+                if (tmpText != null) tmpText.text = "[E] 鏡を見る";
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -187,6 +202,10 @@ public class MirrorInteractive : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            if (promptUI != null)
+            {
+                promptUI.SetActive(false);
+            }
         }
     }
 }

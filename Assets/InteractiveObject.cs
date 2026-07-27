@@ -4,7 +4,7 @@ public class InteractiveObject : MonoBehaviour
 {
     [Header("提示文本")]
     [TextArea(2, 5)]
-    public string clueDescription = "浴缸里的水还在不停漫出来……她在水里才能呼吸顺畅。";
+    public string clueDescription = "浴槽から水が溢れ出ている……彼女は水の中でのみ、息をすることができた。";
 
     private bool isPlayerInRange;
     private bool isShowingText;

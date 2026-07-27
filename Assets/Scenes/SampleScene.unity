@@ -647,7 +647,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.7625936, y: -2.3988676}
+  m_Offset: {x: -0.76259375, y: -1.5857761}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -657,7 +657,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 9.197049, y: 11.3322315}
+  m_Size: {x: 9.197049, y: 9.706047}
   m_EdgeRadius: 0
 --- !u!114 &268768594
 MonoBehaviour:
@@ -678,6 +678,7 @@ MonoBehaviour:
   - {fileID: -6306488633298344901, guid: 5a1436fee77422e42a1e0df7935630e1, type: 3}
   - {fileID: 9006580730042524337, guid: 192de13607413cd44bd98e05a9ebcc2a, type: 3}
   fadeDuration: 0.5
+  promptUI: {fileID: 0}
   mirrorLight: {fileID: 173143076}
   targetLightIntensity: 0.5
 --- !u!1 &313554837
@@ -6868,7 +6869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b0a457dacc1c848965a0dae5d2e818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractiveObject
-  clueDescription: "\u6D74\u7F38\u91CC\u7684\u6C34\u8FD8\u5728\u4E0D\u505C\u6F2B\u51FA\u6765\u2026\u2026\u5979\u5728\u6C34\u91CC\u624D\u80FD\u547C\u5438\u987A\u7545\u3002"
+  clueDescription: "\u6D74\u69FD\u304B\u3089\u6C34\u304C\u6EA2\u308C\u51FA\u3066\u3044\u308B\u2026\u2026\u5F7C\u5973\u306F\u6C34\u306E\u4E2D\u3067\u306E\u307F\u3001\u606F\u3092\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u305F\u3002"
 --- !u!61 &1404727997
 BoxCollider2D:
   m_ObjectHideFlags: 0
