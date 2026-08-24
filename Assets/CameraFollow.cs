@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // 拖入 Player
+    public Transform target;        // 拖入 Player_Container
     public float smoothSpeed = 5f;
     public Vector3 offset = new Vector3(0f, 0f, -10f);
 
@@ -22,8 +22,8 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 desiredPosition = target.position + offset;
 
-        // 如果拖入了背景图，实时计算边界（这样你改 Camera Size 时它也会自动适应）
-        if (roomBackground != null)
+        // 如果拖入了背景图，实时计算边界
+        if (roomBackground != null && cam != null)
         {
             Bounds bgBounds = roomBackground.bounds;
 
@@ -35,7 +35,6 @@ public class CameraFollow : MonoBehaviour
             float minY = bgBounds.min.y + camHeight;
             float maxY = bgBounds.max.y - camHeight;
 
-            // 如果背景图尺寸比相机视野还小，防止 min 大于 max 导致卡死
             if (minX > maxX) minX = maxX = bgBounds.center.x;
             if (minY > maxY) minY = maxY = bgBounds.center.y;
 
