@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;        // 拖入 Player_Container
+    public Transform target;          // 拖入 Player_Container
     public float smoothSpeed = 5f;
     public Vector3 offset = new Vector3(0f, 0f, -10f);
 
-    [Header("背景图（自动计算边界）")]
+    [Header("背景图(自动计算边界) ")]
     public SpriteRenderer roomBackground;
 
     private Camera cam;
