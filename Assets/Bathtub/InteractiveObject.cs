@@ -11,7 +11,8 @@ public class InteractiveObject : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        // 修改点：将原先的 Input.GetKeyDown(KeyCode.E) 改为鼠标左键点击
+        if (isPlayerInRange && Input.GetMouseButtonDown(0))
         {
             TriggerInteraction();
         }

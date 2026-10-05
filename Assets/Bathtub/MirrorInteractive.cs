@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-// 如果你的项目用的是 URP 的 2D Light，请确保这一行存在（如果报错可删掉）
 using UnityEngine.Rendering.Universal;
 
 public class MirrorInteractive : MonoBehaviour
@@ -17,8 +16,8 @@ public class MirrorInteractive : MonoBehaviour
     public GameObject promptUI;
 
     [Header("2D光照设置 (可选)")]
-    public Light2D mirrorLight; // 可以在面板把镜子的 2D Light 拖进来
-    public float targetLightIntensity = 1.5f; // 变化时光的亮度
+    public Light2D mirrorLight;
+    public float targetLightIntensity = 1.5f;
 
     private bool isPlayerInRange;
     private bool isMirrorInteracting = false;
@@ -26,8 +25,11 @@ public class MirrorInteractive : MonoBehaviour
     private int currentStageIndex = 0;
     private int currentPageIndex = 0;
     private bool isFading = false;
+    private bool isWaitingForClick = true;
 
-    // 镜子专属的独立对话剧本
+    // 触发锁
+    private bool canTrigger = true;
+
     private string[][] dialoguePages = new string[][]
     {
         new string[] { "この鏡は相当古びているようだ。鏡面にはうっすらと水滴が浮かんでいる……" },
@@ -47,24 +49,32 @@ public class MirrorInteractive : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && !isMirrorInteracting && Input.GetKeyDown(KeyCode.E))
+        if (isFading) return;
+
+        // 触发开始
+        if (isPlayerInRange && canTrigger && !isMirrorInteracting && Input.GetMouseButtonDown(0))
         {
             StartInteraction();
         }
-        else if (isMirrorInteracting && Input.GetMouseButtonDown(0))
+        // 推进对话
+        else if (isMirrorInteracting && isWaitingForClick && Input.GetMouseButtonDown(0))
         {
-            if (isFading) return;
             HandleNext();
         }
-    } // <- 这里正确关闭了 Update 方法
+    }
 
     void StartInteraction()
     {
         isMirrorInteracting = true;
+        canTrigger = false;
         currentStageIndex = 0;
         currentPageIndex = 0;
 
-        // 原地静止逻辑
+        if (promptUI != null)
+        {
+            promptUI.SetActive(false);
+        }
+
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -104,7 +114,6 @@ public class MirrorInteractive : MonoBehaviour
             if (currentStageIndex < mirrorStates.Length)
             {
                 StartCoroutine(StepToNextState(currentStageIndex));
-                UIManager.Instance.ShowSubtitle(dialoguePages[currentStageIndex][currentPageIndex], null);
             }
             else
             {
@@ -116,7 +125,8 @@ public class MirrorInteractive : MonoBehaviour
     IEnumerator StepToNextState(int index)
     {
         isFading = true;
-        // 画面淡出时，顺便让 2D 光闪一下或变亮
+        isWaitingForClick = false;
+
         if (mirrorLight != null)
         {
             mirrorLight.intensity = targetLightIntensity;
@@ -126,16 +136,20 @@ public class MirrorInteractive : MonoBehaviour
         mirrorRenderer.sprite = mirrorStates[index];
         yield return StartCoroutine(Fade(1f));
 
+        UIManager.Instance.ShowSubtitle(dialoguePages[currentStageIndex][currentPageIndex], null);
+
         isFading = false;
+        isWaitingForClick = true;
     }
 
     IEnumerator EndInteractionSequence()
     {
         isFading = true;
+        isWaitingForClick = false;
+
         yield return StartCoroutine(Fade(0f));
         mirrorRenderer.sprite = mirrorStates[0];
 
-        // 恢复初始光照强度
         if (mirrorLight != null)
         {
             mirrorLight.intensity = 1f;
@@ -144,13 +158,13 @@ public class MirrorInteractive : MonoBehaviour
         yield return StartCoroutine(Fade(1f));
 
         isFading = false;
+        isWaitingForClick = true;
         currentStageIndex = 0;
         currentPageIndex = 0;
         isMirrorInteracting = false;
 
         UIManager.Instance.Hidesubtitle();
 
-        // 核心修复：交互结束时，重新启用玩家的移动脚本
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -159,6 +173,20 @@ public class MirrorInteractive : MonoBehaviour
             {
                 playerMove.enabled = true;
             }
+        }
+
+        // 【修改点】强制增加冷却时间！
+        // 交互结束后，必须强制等待 0.6 秒（你可以把 0.6 改大或改小），
+        // 并且在此期间及之后，要求玩家必须松开鼠标再重新点击，才能触发下一轮。
+        yield return new WaitForSeconds(0.6f);
+        yield return new WaitUntil(() => !Input.GetMouseButton(0));
+
+        // 重新开启触发权限（前提是玩家依然站在范围内）
+        canTrigger = true;
+
+        if (isPlayerInRange && promptUI != null)
+        {
+            promptUI.SetActive(true);
         }
     }
 
@@ -188,11 +216,13 @@ public class MirrorInteractive : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            canTrigger = true;
+
             if (promptUI != null && !isMirrorInteracting)
             {
                 promptUI.SetActive(true);
                 TextMeshProUGUI tmpText = promptUI.GetComponentInChildren<TextMeshProUGUI>();
-                if (tmpText != null) tmpText.text = "[E] 鏡を見る";
+                if (tmpText != null) tmpText.text = "[点击] 鏡を見る";
             }
         }
     }
@@ -202,6 +232,7 @@ public class MirrorInteractive : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            canTrigger = false;
             if (promptUI != null)
             {
                 promptUI.SetActive(false);
