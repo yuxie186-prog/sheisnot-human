@@ -37,6 +37,15 @@ public class PuzzleManager : MonoBehaviour
 
     void LoadBathScene()
     {
-        SceneManager.LoadScene(targetSceneName);
+        // 调用转场管理器的淡出并加载接口
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.FadeAndLoadScene(targetSceneName);
+        }
+        else
+        {
+            // 万一场景里没有挂 SceneTransitionManager，保底直接切场景
+            SceneManager.LoadScene(targetSceneName);
+        }
     }
 }
