@@ -729,8 +729,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2466366364040669568, guid: 5ceb6422af779b842b1ef17d2d111928, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2466366364040669568, guid: 5ceb6422af779b842b1ef17d2d111928, type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2466366364040669568, guid: 5ceb6422af779b842b1ef17d2d111928, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 2466366364040669568, guid: 5ceb6422af779b842b1ef17d2d111928, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 2.1921062
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4952485507372111238, guid: 5ceb6422af779b842b1ef17d2d111928, type: 3}
       propertyPath: m_Name
@@ -759,6 +771,8 @@ GameObject:
   - component: {fileID: 663951310}
   - component: {fileID: 663951313}
   - component: {fileID: 663951314}
+  - component: {fileID: 663951315}
+  - component: {fileID: 663951316}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -809,7 +823,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -900,6 +914,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &663951315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663951309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec26be15ddf1144b9cc77eaf7545f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleCameraFollow
+  target: {fileID: 2017977750}
+  smoothSpeed: 5
+  offset: {x: 0, y: 0, z: -10}
+--- !u!114 &663951316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663951309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f46d633d60e1240b9c1763fc446f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  target: {fileID: 2017977750}
+  smoothSpeed: 5
+  offset: {x: 0, y: 0, z: -10}
+  roomBackground: {fileID: 1008393951}
 --- !u!1 &684122795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,6 +2051,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76597d3fafda82442adaa67ea3051ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersistentEventSystem
+--- !u!4 &2017977750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1227245907700919621, guid: a8c88827c88cc4348a6fefa1206ece1e, type: 3}
+  m_PrefabInstance: {fileID: 2058026046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2058026046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2183,6 +2233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICursor
       objectReference: {fileID: 0}
+    - target: {fileID: 6166350754758283851, guid: 507948e41f3158a41b09f6b9ffb2304b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4226584394888939119, guid: e1b323759f387324b9938558e0adfb6b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
