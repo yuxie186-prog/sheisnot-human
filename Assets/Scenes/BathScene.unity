@@ -593,11 +593,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 736048028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 150, y: 38}
   m_SizeDelta: {x: 900, y: 140}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &209264442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,15 +645,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -1634,7 +1634,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6994,7 +6994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 1600, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &736048029
@@ -8092,10 +8092,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b0a457dacc1c848965a0dae5d2e818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractiveObject
-  clueDescription: "\u6D74\u69FD\u304B\u3089\u6C34\u304C\u6EA2\u308C\u51FA\u3066\u3044\u308B\u2026\u2026\u5F7C\u5973\u306F\u6C34\u306E\u4E2D\u3067\u306E\u307F\u3001\u606F\u3092\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u305F\u3002"
+  clueDescription: "\u6D74\u69FD\u304B\u3089\u6C34\u304C\u6EA2\u308C\u51FA\u3066\u3044\u308B\u2026\u2026\\n\u5F7C\u5973\u306F\u6C34\u306E\u4E2D\u3067\u306E\u307F\u3001\u606F\u3092\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u305F\u3002"
   isBathTubForTransition: 1
   targetSceneName: SeasideScene
-  subtitleDisplayTime: 2.5
+  subtitleDisplayTime: 5
 --- !u!61 &1404727997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9020,12 +9020,12 @@ MonoBehaviour:
   - {fileID: -3390207202718750500, guid: 67dd5987a28235943a501a452c2d37fd, type: 3}
   - {fileID: -1269390242467195563, guid: 1c4fde4f1f88c7b40b081f3a8001135a, type: 3}
   subtitles:
-  - "\u5F7C\u306F\u3001\u6700\u5F8C\u3082\u3046\u4E00\u5EA6\u3060\u3051\u3001\u4F1A\u793E\u306E\u6249\u3092\u958B\u3051\u305F\u3002\n"
+  - "\u5F7C\u306F\u3001\u6700\u5F8C\u3082\u3046\u4E00\u5EA6\u3060\u3051\u3001\\n\u4F1A\u793E\u306E\u6249\u3092\u958B\u3051\u305F\u3002\n"
   - 
   - 
   - "\u5E7C\u3044\u9803\u3001\u5F7C\u306F\u6D77\u8FBA\u3067\u3001\u3072\u3068\u308A\u306E\u5C11\u5973\u3092\u63CF\u3044\u305F\u3002"
   - 
-  - "\u7D75\u3092\u63CF\u304D\u7D9A\u3051\u308B\u3053\u3068\u304C\u3001\u5F7C\u306E\u5922\u3060\u3063\u305F\u3002"
+  - "\u7D75\u3092\u63CF\u304D\u7D9A\u3051\u308B\u3053\u3068\u304C\u3001\u4FEE\u4E00\u306E\u5922\u3060\u3063\u305F\u3002"
   - 
   - "\u3044\u3064\u304B\u3089\u304B\u3001\u305D\u308C\u3092\u7BB1\u306E\u4E2D\u306B\u3057\u307E\u3044\u8FBC\u3093\u3060\u3002"
   - 
