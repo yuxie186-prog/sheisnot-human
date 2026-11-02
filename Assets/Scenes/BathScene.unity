@@ -593,11 +593,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 736048028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150, y: 38}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 100, y: 20}
   m_SizeDelta: {x: 900, y: 140}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &209264442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,8 +645,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -8072,7 +8072,6 @@ GameObject:
   - component: {fileID: 1404727998}
   - component: {fileID: 1404727997}
   - component: {fileID: 1404727996}
-  - component: {fileID: 1404728000}
   m_Layer: 0
   m_Name: Bathtub
   m_TagString: Untagged
@@ -8217,22 +8216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1404728000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404727995}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b0a457dacc1c848965a0dae5d2e818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObject
-  clueDescription: "\u6D74\u7F38\u91CC\u7684\u6C34\u8FD8\u5728\u4E0D\u505C\u6F2B\u51FA\u6765\u2026\u2026\u5979\u5728\u6C34\u91CC\u624D\u80FD\u547C\u5438\u987A\u7545\u3002"
-  isBathTubForTransition: 0
-  targetSceneName: SeasideScene
-  subtitleDisplayTime: 2.5
 --- !u!1001 &1418680980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9009,6 +8992,7 @@ MonoBehaviour:
   - {fileID: 7372422803683288261, guid: 93c23746c5b1881458ac19408e491b20, type: 3}
   - {fileID: 5278399991683288431, guid: 6585f76a72afe8540a0b10dd2bd3665c, type: 3}
   - {fileID: -7874414763410848013, guid: 6f6f37f5f220c1e42b7734270c51d7da, type: 3}
+  - {fileID: -2298387671383343986, guid: 14b5ecdd3bed58b4593044574c72db4d, type: 3}
   - {fileID: 7939919661093249925, guid: 024189d0f75362e499be9bcc5370f5b2, type: 3}
   - {fileID: -3847066847042530963, guid: 80e5c9c7104ffd74c8fe835eacf365f1, type: 3}
   - {fileID: 2915410245011344516, guid: e5706c994d4acb442a1c76b2d6662c0e, type: 3}
@@ -9026,6 +9010,7 @@ MonoBehaviour:
   - "\u5E7C\u3044\u9803\u3001\u5F7C\u306F\u6D77\u8FBA\u3067\u3001\u3072\u3068\u308A\u306E\u5C11\u5973\u3092\u63CF\u3044\u305F\u3002"
   - 
   - "\u7D75\u3092\u63CF\u304D\u7D9A\u3051\u308B\u3053\u3068\u304C\u3001\u4FEE\u4E00\u306E\u5922\u3060\u3063\u305F\u3002"
+  - 
   - 
   - "\u3044\u3064\u304B\u3089\u304B\u3001\u305D\u308C\u3092\u7BB1\u306E\u4E2D\u306B\u3057\u307E\u3044\u8FBC\u3093\u3060\u3002"
   - 

@@ -5,33 +5,57 @@ public class UICursorFollow : MonoBehaviour
     private RectTransform rectTransform;
     private Canvas canvas;
 
-    void Start()
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
     }
 
+    void OnEnable()
+    {
+        // 隐藏系统自带的鼠标光标
+        Cursor.visible = false;
+    }
+
+    // 优化：从 Update 改为 LateUpdate，确保光标跟随丝滑、不卡顿、无撕裂
     void LateUpdate()
     {
-        // 游戏运行时强制隐藏系统鼠标
-        Cursor.visible = false;
+        // 如果找不到 Canvas 或 RectTransform，则跳过
+        if (canvas == null || rectTransform == null)
+            return;
 
-        Vector2 localPoint;
-        Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+        // 动态获取当前画布（以防切换场景时画布发生变化）
+        if (canvas == null)
+        {
+            canvas = GetComponentInParent<Canvas>();
+            return;
+        }
 
-        // 让UI图片跟着鼠标坐标走
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
-            Input.mousePosition,
-            cam,
-            out localPoint
-        );
+        Vector2 mousePosition = Input.mousePosition;
 
-        rectTransform.localPosition = localPoint;
+        // 根据 Canvas 的渲染模式计算光标位置
+        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+        {
+            rectTransform.position = mousePosition;
+        }
+        else
+        {
+            Camera cam = canvas.worldCamera;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                mousePosition,
+                cam,
+                out Vector2 localPoint
+            );
+
+            rectTransform.localPosition = localPoint;
+        }
     }
 
     void OnDisable()
     {
+        // 当光标组件关闭或切换场景销毁时，恢复显示系统光标
         Cursor.visible = true;
     }
 }
