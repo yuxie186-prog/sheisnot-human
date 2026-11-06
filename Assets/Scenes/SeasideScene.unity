@@ -1911,9 +1911,6 @@ MonoBehaviour:
   - cgSprite: {fileID: -4757483670402039651, guid: 4658569f4c19d504391b495e3a8166fc, type: 3}
     dialogues:
     - "\u3053\u306E\u30B9\u30B1\u30C3\u30C1\u30D6\u30C3\u30AF\u3001\u307E\u3060\u6B8B\u3063\u3066\u305F\u3093\u3060\u3002"
-  - cgSprite: {fileID: 2014405004341828496, guid: 637921482e1bfcf47b84492f1d1c2c2a, type: 3}
-    dialogues:
-    - 
   - cgSprite: {fileID: -2298387671383343986, guid: 95eec8e91d0b63041a6558da79133f75, type: 3}
     dialogues:
     - "\u3042\u306E\u65E5\u3001\u6C34\u306E\u4E2D\u304B\u3089\u3001\u8AB0\u304B\u304C\u4FFA\u3092\u898B\u3066\u3044\u305F\u3002"
@@ -1923,12 +1920,15 @@ MonoBehaviour:
   - cgSprite: {fileID: 7179313232142530330, guid: c20ce251dff16924592bf5c8b70a4565, type: 3}
     dialogues:
     - "\u540C\u3044\u5E74\u306E\u5973\u306E\u5B50\u304C\u3001\u521D\u3081\u3066\u7B11\u3063\u3066\u304F\u308C\u305F\u3002"
+  - cgSprite: {fileID: 2014405004341828496, guid: 637921482e1bfcf47b84492f1d1c2c2a, type: 3}
+    dialogues:
+    - 
   - cgSprite: {fileID: 6778390484494741196, guid: adab924db38544f43bdec218c2adc97d, type: 3}
     dialogues:
     - "\u305D\u3046\u3060\u3001\u4FFA\u304C\u63CF\u3044\u3066\u3044\u305F\u306E\u306F\u2015\u2015\u541B\u3060\u3002"
   - cgSprite: {fileID: 8370147754660893587, guid: ed0eb7f67f3028c4b96bc838c613cd03, type: 3}
     dialogues:
-    - "\u9854\u3092\u4E0A\u3052\u308B\u3068\u3001\u591C\u306E\u6D77\u304C\u9759\u307E\u308A\u8FD4\u3063\u3066\u3044\u305F\u3002"
+    - 
   - cgSprite: {fileID: -5116024799857493270, guid: dcb1707053c05154fade7a5782a22604, type: 3}
     dialogues:
     - "\u6C17\u3065\u3051\u3070\u3001\u7A7A\u306F\u3082\u3046\u5915\u713C\u3051\u306B\u67D3\u307E\u3063\u3066\u3044\u305F\u3002"

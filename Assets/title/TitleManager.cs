@@ -7,7 +7,7 @@ public class TitleManager : MonoBehaviour
     public void OnStartButtonClicked()
     {
         // 填写你要跳转的主游戏场景名称（比如你的 ApartmentMapScene）
-        SceneManager.LoadScene("ApartmentMapScene");
+        SceneManager.LoadScene("Begin");
     }
 
     // 点击“退出游戏”按钮时调用（可选）
