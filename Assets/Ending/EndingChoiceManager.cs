@@ -191,8 +191,8 @@ public class EndingChoiceManager : MonoBehaviour
     {
         Debug.Log("结局CG与台词播放完毕");
 
-        // 播完后如果需要切回标题或重新开始，可以在这里写：
-        // SceneManager.LoadScene("TitleScene");
+        // 取消注释或直接写入这行，切回标题界面
+        SceneManager.LoadScene("TitleScene");
 
         this.enabled = false;
     }

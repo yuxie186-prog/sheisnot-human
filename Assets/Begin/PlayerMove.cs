@@ -2,45 +2,39 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float speed = 2.0f;          // 移动速度
-    public float targetX = 5.0f;        // 默认的停止位置
-
+    public float speed = 0.7f;     // 移动速度
+    public float targetX = 50f;    // 边走边点台词时的移动上限
     private DialogueTrigger dialogueTrigger;
+
+    private bool hasTriggeredCG = false; // 防止重复触发
 
     void Start()
     {
-        // 自动获取场景中的对话控制器
-        dialogueTrigger = FindObjectOfType<DialogueTrigger>();
+        dialogueTrigger = FindAnyObjectByType<DialogueTrigger>();
+
+        if (dialogueTrigger == null)
+        {
+            Debug.LogError("场景里找不到 DialogueTrigger！", this);
+        }
     }
 
     void Update()
     {
-        // 检查台词是否全部点完了
-        bool isDialogueFinished = (dialogueTrigger == null) || dialogueTrigger.IsFinished();
+        if (hasTriggeredCG) return;
 
-        // 核心修改逻辑：
-        // 只要台词还没有全部点完，主角就可以一直往前走（不被 targetX 卡死）
-        // 只有当“台词点完了”并且“走到了 targetX”时，才真正停下并转场
+        bool isDialogueFinished = (dialogueTrigger != null && dialogueTrigger.IsFinished());
 
-        if (!isDialogueFinished)
+        // 台词没点完时继续往前走
+        if (!isDialogueFinished && transform.position.x < targetX)
         {
-            // 只要台词没读完，不管走到了哪里，都继续向前走
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
-        else
+
+        // 台词一点完就触发 CG，不再要求走到终点
+        if (isDialogueFinished)
         {
-            // 台词已经点完了
-            if (transform.position.x < targetX)
-            {
-                // 如果还没走到目标位置，继续走完剩下的路
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-            }
-            else
-            {
-                // 既点完了台词，又到达了目标位置 -> 触发转场切入公寓
-                transform.Translate(Vector3.zero); // 停下
-                dialogueTrigger.TriggerTransition();
-            }
+            hasTriggeredCG = true;
+            dialogueTrigger.TriggerTransition();
         }
     }
 }

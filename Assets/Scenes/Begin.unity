@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 0.7
-  targetX: 5
+  targetX: 20
 --- !u!95 &270518639
 Animator:
   serializedVersion: 7
@@ -259,7 +259,6 @@ GameObject:
   m_Component:
   - component: {fileID: 296651880}
   - component: {fileID: 296651879}
-  - component: {fileID: 296651878}
   m_Layer: 0
   m_Name: Video Player
   m_TagString: Untagged
@@ -267,19 +266,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &296651878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296651877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cbc981f7c2466468f3914faa470df3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CGTransition
-  nextSceneName: ApartmentMapScene
 --- !u!328 &296651879
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -288,7 +274,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296651877}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 991f72ee5a0debc4097c09e6007c82a3, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: ef59cfc8d0dab7449b0b0be97ef73b0a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -297,7 +283,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 2
+  m_AspectRatio: 3
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -378,7 +364,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 917753221763859384, guid: e5239ca7ff6a4c44e8253bf46712abfd, type: 3}
       propertyPath: m_Text
-      value: ......
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3205697471533636007, guid: e5239ca7ff6a4c44e8253bf46712abfd, type: 3}
       propertyPath: m_Name
